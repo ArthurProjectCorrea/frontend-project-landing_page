@@ -8,7 +8,15 @@ const colorMap = {
   info: "bg-blue-500",
 };
 
-export default function Alert({ message, type = "info", duration = 3000 }) {
+type AlertType = keyof typeof colorMap;
+
+interface AlertProps {
+  message: string;
+  type?: AlertType;
+  duration?: number;
+}
+
+export default function Alert({ message, type = "info", duration = 3000 }: AlertProps) {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
