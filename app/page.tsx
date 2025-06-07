@@ -1,22 +1,18 @@
-import type { Metadata } from 'next'
 import Hero from './ui/hero'
+import Benefits from './ui/benefits' // Importando o novo componente
 import About from './ui/about'
 import Services from './ui/services'
-import Contact from './ui/contact' 
-
-export const metadata: Metadata = {
-  title: 'MinhaEmpresa - Soluções inteligentes',
-  description: 'Landing page institucional com Next.js, focada em soluções para o seu negócio.',
-}
+import FormEmail from './ui/formemail'
 
 export default function Home() {
   return (
     <>
       <main >
         <Hero />
+        <Benefits /> {/* Adicionando o componente Benefits */}
         <About />
         <Services />
-        <Contact />
+        <FormEmail />
       </main>
     </>
   )
