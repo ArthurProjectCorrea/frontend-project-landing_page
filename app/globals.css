@@ -1,30 +1,65 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@font-face {
+  font-family: 'Inter var';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/font/Inter-VariableFont_opsz,wght.ttf') format('truetype-variations');
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@font-face {
+  font-family: 'Inter var';
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/font/Inter-Italic-VariableFont_opsz,wght.ttf') format('truetype-variations');
+}
+
+:root {
+  /* Padrão para tema claro */
+  --background: #ffffff;
+  --foreground: #000000;
+
+  /* Definição da nova família de fontes */
+  --font-inter: 'Inter var', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+/* Se a classe .dark estiver no html, usa cores escuras.
+   Isso tem maior especificidade que :root sozinho. */
+html.dark {
+  --background: #000000;
+  --foreground: #ffffff;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* Se o sistema operacional prefere o modo escuro E a classe .dark NÃO foi
+     explicitamente definida (pelo JS via localStorage ou toggle), então usa cores escuras.
+     Isso cobre o estado inicial antes do JS rodar ou se não houver preferência salva. */
+  :root:not(.dark) {
+    --background: #000000;
+    --foreground: #ffffff;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter); /* Aplicando a nova fonte ao corpo */
+  /* Adiciona uma transição suave para a mudança de tema */
+  transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+/* As variáveis @theme inline devem usar as variáveis finais que são aplicadas ao body */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-inter); /* Atualizando --font-sans para usar Inter */
+  --font-mono: var(--font-geist-mono);
 }
